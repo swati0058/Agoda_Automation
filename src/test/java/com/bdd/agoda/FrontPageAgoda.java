@@ -3,11 +3,9 @@ package com.bdd.agoda;
 import java.util.List;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
 
 import PageObject.DateHandler;
 import PageObject.Utilities;
@@ -32,7 +30,9 @@ public class FrontPageAgoda extends BaseClass {
 
 	public static String roomoffer_type = "Dinner included";
 	public static String property_type = "Guesthouse/bed and breakfast";
-	public static String hotel_name = "Radisson Hyderabad Hitec City";
+	public static String hotel_name = "The Park Hyderabad Hotel";
+	public static String room_type = "Business Room";
+	
 
 	public static String Guestbooking_type = "";
 	public static WebDriver driver;
@@ -70,6 +70,7 @@ public class FrontPageAgoda extends BaseClass {
 			
 			Thread.sleep(1000);
 			utilities.selectingHotels(driver,hotel_name);
+		utilities.Hotel_addcart(driver,room_type);
 			// search_sort(driver);
 			//bookpageUtils.RoomOfferstypes(driver, roomoffer_type);
 

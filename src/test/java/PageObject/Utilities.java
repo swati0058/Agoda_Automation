@@ -69,63 +69,108 @@ public class Utilities {
 
 	public void selectCity(WebDriver driver, String destination_place) {
 		System.out.println("Selecting city");
-		List<WebElement> list = driver.findElements(By.xpath("//div[@class='Popup__content Popup__content_Occupancy']//ul//li[@class='Suggestion Suggestion__categoryName']"));
+		List<WebElement> list = driver.findElements(By.xpath(
+				"//div[@class='Popup__content Popup__content_Occupancy']//ul//li[@class='Suggestion Suggestion__categoryName']"));
 		for (WebElement current : list) {
 			String cities = current.getAttribute("data-element-value");
-			 System.out.println("======cities======"+cities);
-			//String cities_data[] = cities.split(",");
-			//String city = cities_data[0];
-			//System.out.println("======city======"+city);
-			//System.out.println("cities_data-----" + city);
-			
-			 if (cities.contains(destination_place)) {
-					System.out.println("city is same");
-					current.click();
-					break;
-				}
+			System.out.println("======cities======" + cities);
+			// String cities_data[] = cities.split(",");
+			// String city = cities_data[0];
+			// System.out.println("======city======"+city);
+			// System.out.println("cities_data-----" + city);
+
+			if (cities.contains(destination_place)) {
+				System.out.println("city is same");
+				current.click();
+				break;
+			}
 		}
 
 	}
 
-	
-	public void selectingHotels( WebDriver driver, String hotelName)
-	{
+	public void selectingHotels(WebDriver driver, String hotelName) {
 		System.out.println("Selecting hotels");
 		System.out.println(hotelName);
-		
-		String parent=driver.getWindowHandle();
 
-		Set<String>s=driver.getWindowHandles();
-		Iterator<String> I1= s.iterator();
+		String parent = driver.getWindowHandle();
 
-		while(I1.hasNext())
-		{
+		Set<String> s = driver.getWindowHandles();
+		Iterator<String> I1 = s.iterator();
 
-		String child_window=I1.next();
+		while (I1.hasNext()) {
 
+			String child_window = I1.next();
 
-		if(!parent.equals(child_window))
-		{
-		driver.switchTo().window(child_window);
+			if (!parent.equals(child_window)) {
+				driver.switchTo().window(child_window);
 
-		System.out.println(driver.switchTo().window(child_window).getTitle());
-List<WebElement> list=	driver.findElements(By.xpath("//div[@class='sc-bdfBwQ sc-gsTCUz  ljntSB']//h3"));
-		
-		for(WebElement list_hotels :list )
-		{
-			String Hotels_name = list_hotels.getAttribute("innerHTML");;
-			 System.out.println("======hotels======"+Hotels_name);
-	
-			 if (Hotels_name.contains(hotelName)) {
-					System.out.println("city is same");
-					list_hotels.click();
-					break;
+				System.out.println(driver.switchTo().window(child_window).getTitle());
+				List<WebElement> list = driver.findElements(By.xpath("//div[@class='sc-bdfBwQ sc-gsTCUz  ljntSB']//h3"));
+
+				for (WebElement list_hotels : list) {
+					String Hotels_name = list_hotels.getAttribute("innerHTML");
+					
+					System.out.println("======hotels======" + Hotels_name);
+
+					if (Hotels_name.contains(hotelName)) {
+						System.out.println("city is same");
+						list_hotels.click();
+						break;
+					}
 				}
-	}
+			}
+		}
+				
+				
 		
-
 	}
-		}}}
 	
-	
+	public void Hotel_addcart( WebDriver driver, String room_type) {
+		String parent = driver.getWindowHandle();
 
+		Set<String> s = driver.getWindowHandles();
+		Iterator<String> I1 = s.iterator();
+
+		while (I1.hasNext()) {
+
+			String child_window = I1.next();
+
+			if (!parent.equals(child_window)) {
+				driver.switchTo().window(child_window);
+				System.out.println(driver.switchTo().window(child_window).getTitle());
+				List<WebElement> list = driver.findElements(By.xpath("//div[@id='roomGridContent']//span[@class='MasterRoom__HotelName']"));
+
+				for (WebElement list_rooms : list) {
+					String Rooms_name = list_rooms.getText();
+				
+					System.out.println("==========Rooms_name========="+Rooms_name);
+					System.out.println(room_type);
+					
+					if(Rooms_name.contains(room_type)) {
+						if(Rooms_name.equalsIgnoreCase("Premium Room")) {
+						System.out.println("type same ");
+						System.out.println("user selected"+Rooms_name);
+						driver.findElement(By.xpath("//div[@id='MasterRoom-65329918']//div[@data-selenium='ChildRoomsList-room'][2]//button[@aria-label='Add to cart ']")).click();
+						
+						}
+						else if(Rooms_name.equalsIgnoreCase("Business Room")) {
+							System.out.println("user selected"+Rooms_name);
+							driver.findElement(By.xpath("//div[@id='MasterRoom-4453670']//div[@data-selenium='ChildRoomsList-room'][2]//button[@aria-label='Add to cart ']")).click();
+							
+							
+							
+						}
+						else if(Rooms_name.contains("Executive Suite")) {
+							System.out.println("user selected"+Rooms_name);
+							driver.findElement(By.xpath("//div[@id='MasterRoom-4453672']//div[@data-selenium='ChildRoomsList-room'][2]//button[@aria-label='Add to cart ']")).click();
+							
+							
+							
+						}
+	
+				}
+}
+	}
+
+		}
+	}}
